@@ -1,0 +1,24 @@
+1.	Desde la vista Servers iniciar Glassfish y abrir la consola de administración de este. En el panel
+	de tareas comunes abrir Resources > JDBC > JDBC Connection Pools y crear un nuevo Connection Pool.
+	
+	Pool Name: academ
+	Resource Type: javax.sql.DataSource
+	Database Driver Vendor: MySql
+	
+	Oprima Next.
+	
+	Datasource Classname: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+	Ping: Enabled
+	
+	Additional Properties
+	portNumber: 3306
+	databaseName: academ
+	serverName: localhost
+	user: root
+	password: <la definida al momento de instalar mysql para el usuario root>
+
+4.	En el panel	de tareas comunes abrir Resources > JDBC > JDBC Resources y crear un nuevo JDBC Resource.
+	
+	JNDI Name: academ
+	Pool Name: academ
+
