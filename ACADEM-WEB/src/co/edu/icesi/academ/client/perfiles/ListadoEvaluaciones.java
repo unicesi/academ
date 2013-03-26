@@ -46,9 +46,9 @@ public class ListadoEvaluaciones extends CustomComponent {
 		
 		// Define the names and data types of columns.
 		tablaEvaluaciones.addContainerProperty("ID", Integer.class, null);
-		tablaEvaluaciones.addContainerProperty("Fecha Inicial", String.class, null);
-		tablaEvaluaciones.addContainerProperty("Fecha Final", String.class, null);
-		tablaEvaluaciones.addContainerProperty("Programa", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Start Date", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Finish Date", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Program", String.class, null);
 
 		// Allow selecting items from the table.
 		tablaEvaluaciones.setSelectable(true);
@@ -139,7 +139,7 @@ public class ListadoEvaluaciones extends CustomComponent {
 		labelTitulo.setImmediate(false);
 		labelTitulo.setWidth("-1px");
 		labelTitulo.setHeight("-1px");
-		labelTitulo.setValue("Evaluaciones");
+		labelTitulo.setValue("Surveys");
 		verticalLayout_1.addComponent(labelTitulo);
 		verticalLayout_1.setComponentAlignment(labelTitulo, new Alignment(48));
 		

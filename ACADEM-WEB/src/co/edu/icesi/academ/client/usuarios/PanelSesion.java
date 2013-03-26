@@ -48,7 +48,7 @@ public class PanelSesion extends CustomComponent {
 	}
 
 	public void setNombreUsuario(String nombreUsuario) {
-		this.labelNombreUsuario.setValue("Usuario: " + nombreUsuario);
+		this.labelNombreUsuario.setValue("User: " + nombreUsuario);
 	}
 
 	protected void cerrarSesion() {
@@ -69,7 +69,7 @@ public class PanelSesion extends CustomComponent {
 		
 		// botonCerrarSesion
 		botonCerrarSesion = new Button();
-		botonCerrarSesion.setCaption("Cerrar Sesión");
+		botonCerrarSesion.setCaption("Sign out");
 		botonCerrarSesion.setImmediate(true);
 		botonCerrarSesion.setWidth("-1px");
 		botonCerrarSesion.setHeight("-1px");

@@ -157,7 +157,7 @@ public class ListadoEvaluadores extends CustomComponent {
 		
 		// tableUsuariosDisponibles
 		tableUsuariosDisponibles = new Table();
-		tableUsuariosDisponibles.setCaption("Usuarios Disponibles");
+		tableUsuariosDisponibles.setCaption("Available Users");
 		tableUsuariosDisponibles.setImmediate(false);
 		tableUsuariosDisponibles.setWidth("180px");
 		tableUsuariosDisponibles.setHeight("257px");
@@ -166,7 +166,7 @@ public class ListadoEvaluadores extends CustomComponent {
 		
 		// tableEvaluadores
 		tableEvaluadores = new Table();
-		tableEvaluadores.setCaption("Evaluadores");
+		tableEvaluadores.setCaption("Stakeholders");
 		tableEvaluadores.setImmediate(false);
 		tableEvaluadores.setWidth("180px");
 		tableEvaluadores.setHeight("257px");
@@ -208,7 +208,7 @@ public class ListadoEvaluadores extends CustomComponent {
 		
 		// buttonGuardar
 		buttonGuardar = new Button();
-		buttonGuardar.setCaption("Guardar");
+		buttonGuardar.setCaption("Save");
 		buttonGuardar.setImmediate(true);
 		buttonGuardar.setWidth("-1px");
 		buttonGuardar.setHeight("-1px");

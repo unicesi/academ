@@ -107,7 +107,7 @@ public class FormularioInicioSesion extends CustomComponent {
 		labelUsuario.setImmediate(false);
 		labelUsuario.setWidth("-1px");
 		labelUsuario.setHeight("-1px");
-		labelUsuario.setValue("Usuario:");
+		labelUsuario.setValue("Username:");
 		mainLayout.addComponent(labelUsuario, "top:22.0px;left:20.0px;");
 		
 		// passwordField
@@ -122,12 +122,12 @@ public class FormularioInicioSesion extends CustomComponent {
 		labelContraseña.setImmediate(false);
 		labelContraseña.setWidth("-1px");
 		labelContraseña.setHeight("-1px");
-		labelContraseña.setValue("Contraseña:");
+		labelContraseña.setValue("Password:");
 		mainLayout.addComponent(labelContraseña, "top:60.0px;left:20.0px;");
 		
 		// loginButton
 		botonIniciarSesion = new Button();
-		botonIniciarSesion.setCaption("Iniciar Sesión");
+		botonIniciarSesion.setCaption("Sign in");
 		botonIniciarSesion.setImmediate(true);
 		botonIniciarSesion.setWidth("-1px");
 		botonIniciarSesion.setHeight("-1px");

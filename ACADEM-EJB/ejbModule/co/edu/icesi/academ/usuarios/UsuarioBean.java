@@ -39,10 +39,10 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				usuarioLogeado = usuario.toBO();
 			} else {
 				throw new IniciarSesionException(
-						"La contraseña no es correcta.");
+						"Invalid password.");
 			}
 		} else {
-			throw new IniciarSesionException("El usuario no es correcto.");
+			throw new IniciarSesionException("Invalid username.");
 		}
 		return usuarioLogeado;
 	}

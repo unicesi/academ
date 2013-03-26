@@ -39,7 +39,7 @@ public class ControladorInicioSesion extends Controlador {
 			usuario = usuarioServices.iniciarSesion(usuarioBO);
 			
 			// Si login exitoso
-			getAcademUI().mostrarNotificacion("ACaDeM", "Bienvenido(a) " + usuario.getNombre());
+			getAcademUI().mostrarNotificacion("ACaDeM", "Welcome " + usuario.getNombre());
 			
 			// Guarda el nombre de usuario en la sesión mediante el atributo 'usuario' 
 			getAcademUI().getHTTPSession().setAttribute("usuario", usuario);
@@ -65,11 +65,11 @@ public class ControladorInicioSesion extends Controlador {
 					// Panel evaluaciones
 					GestionEvaluaciones gestionEvaluaciones = new GestionEvaluaciones();
 					getAcademUI().setGestionEvaluaciones(gestionEvaluaciones);
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(getAcademUI().getGestionEvaluaciones(), "Evaluaciones");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(getAcademUI().getGestionEvaluaciones(), "Surveys");
 					ControladorAdministrador.getInstance().obtenerEvaluaciones();
 					
 					// TODO Panel usuarios
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(new Label("Pestaña para crear y editar usuarios. [En construcción]"), "Usuarios");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(new Label("Tab to create and edit users. [Under construction]"), "Users");
 					
 					getAcademUI().getPanelContenido().setContenido(getAcademUI().getPanelOpciones(), "top:0.0px;left:0.0px;");
 					break;
@@ -86,13 +86,13 @@ public class ControladorInicioSesion extends Controlador {
 					// Panel asociar evaluadores
 					ListadoEvaluadores listadoEvaluadores = new ListadoEvaluadores();
 					getAcademUI().setListadoEvaluadores(listadoEvaluadores);
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(listadoEvaluadores, "Evaluadores");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(listadoEvaluadores, "Stakeholders");
 					// TODO Panel configurar roles
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(new Label("Pestaña para configurar los roles en una evaluación. [En construcción]"), "Roles");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(new Label("Tab to configure the survey's stakeholder groups. [Under construction]"), "Stakeholder Groups");
 					// Panel consolidar evaluacion
 					ConsolidadoEvaluacion consolidadoEvaluacion = new ConsolidadoEvaluacion();
 					getAcademUI().setConsolidadoEvaluacion(consolidadoEvaluacion);
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(consolidadoEvaluacion, "Consolidar");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(consolidadoEvaluacion, "Consolidate");
 					
 					getAcademUI().getPanelContenido().setContenido(getAcademUI().getPanelOpciones(), "top:0.0px;left:310.0px;");
 					// Las opciones permanecen deshabilitadas hasta que seleccione una evaluación.
@@ -111,7 +111,7 @@ public class ControladorInicioSesion extends Controlador {
 					// Panel participar en evaluación
 					ListadoCalificacionesEvaluacion listadoCalificaciones = new ListadoCalificacionesEvaluacion();
 					getAcademUI().setListadoCalificacionesEvaluacion(listadoCalificaciones);
-					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(listadoCalificaciones, "Evaluar");
+					getAcademUI().getPanelOpciones().getTabSheetOpciones().addTab(listadoCalificaciones, "Reply");
 					getAcademUI().getPanelContenido().setContenido(getAcademUI().getPanelOpciones(), "top:0.0px;left:310.0px;");
 					// Las opciones permanecen deshabilitadas hasta que seleccione una evaluación.
 					getAcademUI().getPanelOpciones().getTabSheetOpciones().setEnabled(false);

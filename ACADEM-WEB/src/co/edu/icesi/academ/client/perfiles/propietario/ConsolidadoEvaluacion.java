@@ -42,9 +42,9 @@ public class ConsolidadoEvaluacion extends CustomComponent {
 		// Define the names and data types of columns.
 		this.tablaConsolidado.addContainerProperty("Numeral", String.class, null);
 		this.tablaConsolidado.setColumnWidth("Numeral", 60);
-		this.tablaConsolidado.addContainerProperty("Tema", String.class, null);
-		this.tablaConsolidado.setColumnWidth("Tema", 300);
-		this.tablaConsolidado.addContainerProperty("Nivel de Conocimiento Resultante", String.class, null);
+		this.tablaConsolidado.addContainerProperty("Topic", String.class, null);
+		this.tablaConsolidado.setColumnWidth("Topic", 300);
+		this.tablaConsolidado.addContainerProperty("Resulting Proficiency Level", String.class, null);
 
 
 		// Allow selecting items from the table.
@@ -122,7 +122,7 @@ public class ConsolidadoEvaluacion extends CustomComponent {
 		
 		// buttonCalcularConsolidado
 		buttonCalcularConsolidado = new Button();
-		buttonCalcularConsolidado.setCaption("Calcular Consolidado");
+		buttonCalcularConsolidado.setCaption("Consolidate");
 		buttonCalcularConsolidado.setImmediate(true);
 		buttonCalcularConsolidado.setWidth("-1px");
 		buttonCalcularConsolidado.setHeight("-1px");
@@ -131,7 +131,7 @@ public class ConsolidadoEvaluacion extends CustomComponent {
 		
 		// buttonConfigurarConsolidado
 		buttonConfigurarConsolidado = new Button();
-		buttonConfigurarConsolidado.setCaption("Configurar Consolidado");
+		buttonConfigurarConsolidado.setCaption("Configure Consolidate");
 		buttonConfigurarConsolidado.setImmediate(true);
 		buttonConfigurarConsolidado.setWidth("-1px");
 		buttonConfigurarConsolidado.setHeight("-1px");

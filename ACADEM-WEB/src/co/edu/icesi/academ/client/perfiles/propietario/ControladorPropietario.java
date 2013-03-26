@@ -46,7 +46,7 @@ public class ControladorPropietario extends Controlador {
 		EvaluacionBO evaluacion = (EvaluacionBO) getAcademUI().getHTTPSession().getAttribute("evaluacion");
 		evaluacion.setEvaluadores(evaluadores);
 		evaluacionServices.guardarEvaluadores(evaluacion);
-		getAcademUI().mostrarNotificacion("ACaDeM", "Evaluadores configurados");
+		getAcademUI().mostrarNotificacion("ACaDeM", "Stakeholders saved");
 	}
 
 	public void cargarTemasConsolidado() {

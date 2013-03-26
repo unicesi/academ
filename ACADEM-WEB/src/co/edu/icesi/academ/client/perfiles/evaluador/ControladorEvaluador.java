@@ -66,6 +66,6 @@ public class ControladorEvaluador extends Controlador{
 	
 	public void guardarCalificaciones(List<CalificacionBO> calificaciones) {
 		evaluacionServices.guardarCalificacionEvaluacion(calificaciones);
-		getAcademUI().mostrarNotificacion("ACaDeM", "Calificación guardada");
+		getAcademUI().mostrarNotificacion("ACaDeM", "Response saved.");
 	}
 }

@@ -42,10 +42,10 @@ public class GestionEvaluaciones extends CustomComponent {
 		// User code
 		
 		tablaGestionEvaluaciones.addContainerProperty("ID", Integer.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Fecha Inicial", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Fecha Final", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Programa", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Propietario", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Start Date", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Finish Date", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Program", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Owner", String.class, null);
 
 		// Allow selecting items from the table.
 		tablaGestionEvaluaciones.setSelectable(true);
@@ -132,7 +132,7 @@ public class GestionEvaluaciones extends CustomComponent {
 		
 		// botonCrearEvaluacion
 		botonCrearEvaluacion = new Button();
-		botonCrearEvaluacion.setCaption("Crear Evaluación");
+		botonCrearEvaluacion.setCaption("Create Survey");
 		botonCrearEvaluacion.setImmediate(true);
 		botonCrearEvaluacion.setWidth("-1px");
 		botonCrearEvaluacion.setHeight("-1px");
@@ -141,7 +141,7 @@ public class GestionEvaluaciones extends CustomComponent {
 		
 		// buttonEditarEvaluacion
 		buttonEditarEvaluacion = new Button();
-		buttonEditarEvaluacion.setCaption("Editar Evaluación");
+		buttonEditarEvaluacion.setCaption("Edit Survey");
 		buttonEditarEvaluacion.setImmediate(false);
 		buttonEditarEvaluacion.setWidth("-1px");
 		buttonEditarEvaluacion.setHeight("-1px");

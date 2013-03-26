@@ -48,12 +48,12 @@ public class ListadoCalificacionesEvaluacion extends CustomComponent {
 		// Define the names and data types of columns.
 		this.tablaCalificacionesEvaluacion.addContainerProperty("Numeral", String.class, null);
 		this.tablaCalificacionesEvaluacion.setColumnWidth("Numeral", 60);
-		this.tablaCalificacionesEvaluacion.addContainerProperty("Nivel de Conocimiento", ComboBox.class, null);
-		this.tablaCalificacionesEvaluacion.setColumnWidth("Nivel de Conocimiento", 350);
-		this.tablaCalificacionesEvaluacion.addContainerProperty("Tema", String.class, null);
-		this.tablaCalificacionesEvaluacion.setColumnWidth("Tema", 300);
-		this.tablaCalificacionesEvaluacion.addContainerProperty("Descripción", String.class, null);
-		this.tablaCalificacionesEvaluacion.setColumnWidth("Descripción", 800);
+		this.tablaCalificacionesEvaluacion.addContainerProperty("Proficiency Level", ComboBox.class, null);
+		this.tablaCalificacionesEvaluacion.setColumnWidth("Proficiency Level", 350);
+		this.tablaCalificacionesEvaluacion.addContainerProperty("Topic", String.class, null);
+		this.tablaCalificacionesEvaluacion.setColumnWidth("Topic", 300);
+		this.tablaCalificacionesEvaluacion.addContainerProperty("Description", String.class, null);
+		this.tablaCalificacionesEvaluacion.setColumnWidth("Description", 800);
 		
 		// Allow selecting items from the table.
 		this.tablaCalificacionesEvaluacion.setSelectable(true);
@@ -109,7 +109,7 @@ public class ListadoCalificacionesEvaluacion extends CustomComponent {
 		List<CalificacionBO> calificaciones = new ArrayList<CalificacionBO>();
 		for (Object itemId : tablaCalificacionesEvaluacion.getItemIds()) {
 			CalificacionBO calificacion = (CalificacionBO) itemId;
-			ComboBox comboBox = (ComboBox) tablaCalificacionesEvaluacion.getItem(calificacion).getItemProperty("Nivel de Conocimiento").getValue();
+			ComboBox comboBox = (ComboBox) tablaCalificacionesEvaluacion.getItem(calificacion).getItemProperty("Proficiency Level").getValue();
 			calificacion.setNivelDeConocimiento((NivelDeConocimientoBO) comboBox.getValue());
 			calificaciones.add(calificacion);
 		}
@@ -138,7 +138,7 @@ public class ListadoCalificacionesEvaluacion extends CustomComponent {
 		
 		// buttonGuardar
 		buttonGuardar = new Button();
-		buttonGuardar.setCaption("Guardar");
+		buttonGuardar.setCaption("Save");
 		buttonGuardar.setImmediate(false);
 		buttonGuardar.setWidth("-1px");
 		buttonGuardar.setHeight("-1px");

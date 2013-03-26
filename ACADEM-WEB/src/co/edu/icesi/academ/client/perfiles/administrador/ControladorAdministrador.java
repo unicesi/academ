@@ -49,14 +49,14 @@ public class ControladorAdministrador extends Controlador {
 		List<UsuarioBO> usuarios = this.usuarioServices.obtenerUsuariosPropietarios();
 		formularioCrearEditarEvaluacion.cargarUsuarios(usuarios);
 		
-		String titulo = "Crear Evaluación";
+		String titulo = "Create Survey";
 		
 		if (evaluacionBO != null) {
 			// Obtener la información de la evaluación seleccionada
 			EvaluacionBO evaluacion = this.evaluacionServices.obtenerEvaluacion(evaluacionBO);
 			formularioCrearEditarEvaluacion.cargarEvaluacion(evaluacion);
 			
-			titulo = "Editar Evaluación";
+			titulo = "Edit Survey";
 		}
 		
 		// Mostrar el formulario para crear evaluación como una ventana emergente
@@ -68,7 +68,7 @@ public class ControladorAdministrador extends Controlador {
 			// Intentar crear evaluacion
 			this.evaluacionServices.crearEvaluacion(evaluacion);
 			
-			cerrarFormularioCrearEditarEvaluacion("Evaluación creada");
+			cerrarFormularioCrearEditarEvaluacion("Survey created");
 		} catch (CrearEvaluacionException e) {
 			getAcademUI().getFormularioCrearEditarEvaluacion().setMensajeError(e.getMessage());
 		}
@@ -79,7 +79,7 @@ public class ControladorAdministrador extends Controlador {
 			// Intentar crear evaluacion
 			this.evaluacionServices.editarEvaluacion(evaluacion);
 			
-			cerrarFormularioCrearEditarEvaluacion("Evaluación editada");
+			cerrarFormularioCrearEditarEvaluacion("Survey edited");
 		} catch (EditarEvaluacionException e) {
 			getAcademUI().getFormularioCrearEditarEvaluacion().setMensajeError(e.getMessage());
 		}
