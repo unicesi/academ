@@ -5,7 +5,7 @@
         <dependent-module archiveName="ACADEM-EJBClient.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ACADEM-EJBClient/ACADEM-EJBClient">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="ACADEM-WEB"/>
         <property name="java-output-path" value="/ACADEM-WEB/build/classes"/>
+        <property name="context-root" value="ACADEM-WEB"/>
     </wb-module>
 </project-modules>

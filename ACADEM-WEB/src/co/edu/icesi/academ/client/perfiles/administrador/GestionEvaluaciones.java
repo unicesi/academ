@@ -1,3 +1,22 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ.client.perfiles.administrador;
 
 import java.text.SimpleDateFormat;
@@ -42,10 +61,10 @@ public class GestionEvaluaciones extends CustomComponent {
 		// User code
 		
 		tablaGestionEvaluaciones.addContainerProperty("ID", Integer.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Start Date", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Finish Date", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Program", String.class, null);
-		tablaGestionEvaluaciones.addContainerProperty("Owner", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Fecha Inicial", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Fecha Final", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Programa", String.class, null);
+		tablaGestionEvaluaciones.addContainerProperty("Propietario", String.class, null);
 
 		// Allow selecting items from the table.
 		tablaGestionEvaluaciones.setSelectable(true);
@@ -132,7 +151,7 @@ public class GestionEvaluaciones extends CustomComponent {
 		
 		// botonCrearEvaluacion
 		botonCrearEvaluacion = new Button();
-		botonCrearEvaluacion.setCaption("Create Survey");
+		botonCrearEvaluacion.setCaption("Crear Evaluación");
 		botonCrearEvaluacion.setImmediate(true);
 		botonCrearEvaluacion.setWidth("-1px");
 		botonCrearEvaluacion.setHeight("-1px");
@@ -141,8 +160,8 @@ public class GestionEvaluaciones extends CustomComponent {
 		
 		// buttonEditarEvaluacion
 		buttonEditarEvaluacion = new Button();
-		buttonEditarEvaluacion.setCaption("Edit Survey");
-		buttonEditarEvaluacion.setImmediate(false);
+		buttonEditarEvaluacion.setCaption("Editar Evaluación");
+		buttonEditarEvaluacion.setImmediate(true);
 		buttonEditarEvaluacion.setWidth("-1px");
 		buttonEditarEvaluacion.setHeight("-1px");
 		mainLayout.addComponent(buttonEditarEvaluacion,

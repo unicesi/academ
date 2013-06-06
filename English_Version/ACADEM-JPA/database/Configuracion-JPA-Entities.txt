@@ -1,0 +1,152 @@
+*****************************************************************************
+Calificacion
+
+@NamedQueries({
+	@NamedQuery(name="obtenerCalificacionesEvaluadorEvaluacion", query="SELECT c FROM Calificacion c WHERE c.id.evaluador LIKE :evaluador AND c.id.evaluacion LIKE :evaluacion"),
+	@NamedQuery(name="removerCalificacionPrevia", query="DELETE FROM Calificacion c WHERE c.id.evaluador LIKE :evaluador AND c.id.evaluacion LIKE :evaluacion AND c.id.tema LIKE :tema")
+})
+
+@JoinColumn(name="evaluacion", insertable=false, updatable=false)
+	private Evaluacion evaluacion;
+@JoinColumn(name="nivelDeConocimiento", insertable=false, updatable=false)
+	private NivelDeConocimiento nivelDeConocimiento;
+@JoinColumn(name="tema", insertable=false, updatable=false)
+	private Tema tema;
+@JoinColumns({
+		@JoinColumn(name="evaluacion", referencedColumnName="evaluacion", insertable=false, updatable=false),
+		@JoinColumn(name="evaluador", referencedColumnName="usuario", insertable=false, updatable=false)
+		})
+	private Usuario_Evaluacion usuarioEvaluacion;
+
+
+	public CalificacionBO toBO() {
+		CalificacionBO calificacionBO = new CalificacionBO();
+		calificacionBO.setEvaluacion(evaluacion.toBO());
+		calificacionBO.setEvaluador(usuarioEvaluacion.getId().getUsuario());
+		calificacionBO.setNivelDeConocimiento(nivelDeConocimiento.toBO());
+		calificacionBO.setTema(tema.toBO());
+		return calificacionBO;
+	}
+
+*****************************************************************************
+Evaluacion
+
+@NamedQueries({
+	@NamedQuery(name="obtenerEvaluacionesDePropietario", query="SELECT e FROM Evaluacion e WHERE e.propietario.nombre LIKE :propietario"),
+	@NamedQuery(name="obtenerEvaluaciones", query="SELECT e FROM Evaluacion e")
+})
+
+
+	public EvaluacionBO toBO() {
+		EvaluacionBO evaluacionBO = new EvaluacionBO();
+		evaluacionBO.setId(id);
+		evaluacionBO.setFechaInicial(fechaInicial);
+		evaluacionBO.setFechaFinal(fechaFinal);
+		evaluacionBO.setPrograma(programa.toBO());
+		evaluacionBO.setPropietario(propietario.toBO());
+		return evaluacionBO;
+	}
+
+*****************************************************************************
+NivelDeConocimiento
+
+@NamedQueries({
+	@NamedQuery(name="obtenerNivelesDeConocimiento", query="SELECT n FROM NivelDeConocimiento n")
+})
+
+
+	public NivelDeConocimientoBO toBO() {
+		NivelDeConocimientoBO nivelDeConocimientoBO = new NivelDeConocimientoBO();
+		nivelDeConocimientoBO.setId(id);
+		nivelDeConocimientoBO.setDescripcion(descripcion);
+		return nivelDeConocimientoBO;
+	}
+
+*****************************************************************************
+Programa
+
+@NamedQueries({
+	@NamedQuery(name="obtenerProgramas", query="SELECT p FROM Programa p")
+})
+
+
+	public ProgramaBO toBO() {
+		ProgramaBO programaBO = new ProgramaBO();
+		programaBO.setCodigo(codigo);
+		programaBO.setNombre(nombre);
+		programaBO.setDescripcion(descripcion);
+		return programaBO;
+	}
+
+*****************************************************************************
+Tema
+
+@NamedQueries({
+	@NamedQuery(name="obtenerTemas", query="SELECT t FROM Tema t")
+})
+
+	
+	public TemaBO toBO() {
+		TemaBO temaBO = new TemaBO();
+		temaBO.setId(id);
+		temaBO.setNombre(nombre);
+		temaBO.setDescripcion(descripcion);
+		return temaBO;
+	}
+
+*****************************************************************************
+Usuario_Evaluacion
+
+@NamedQueries({
+	@NamedQuery(name="obtenerEvaluacionesDeEvaluador", query="SELECT ue FROM Usuario_Evaluacion ue WHERE ue.id.usuario LIKE :evaluador"),
+	@NamedQuery(name="obtenerEvaluadoresDeEvaluacion", query="SELECT ue FROM Usuario_Evaluacion ue WHERE ue.id.evaluacion LIKE :evaluacion"),
+	@NamedQuery(name="removerEvaluadoresDeEvaluacion", query="DELETE FROM Usuario_Evaluacion ue WHERE ue.id.evaluacion LIKE :evaluacion AND ue.id.usuario LIKE :usuario")
+})
+
+*****************************************************************************
+Usuario
+
+@NamedQueries({
+	@NamedQuery(name="obtenerUsuariosPropietarios", query="SELECT u FROM Usuario u WHERE u.perfil.nombre LIKE 'Propietario'"),
+	@NamedQuery(name="obtenerUsuariosDisponibles", query="SELECT u FROM Usuario u WHERE u.nombre NOT IN (SELECT ue.id.usuario FROM Usuario_Evaluacion ue WHERE ue.id.evaluacion LIKE :evaluacion)")
+})
+
+
+	public UsuarioBO toBO() {
+		UsuarioBO usuarioBO = new UsuarioBO();
+		usuarioBO.setNombre(this.nombre);
+		usuarioBO.setPerfil(this.perfil.getNombre());
+		return usuarioBO;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Usuario user = (Usuario)obj;
+		return user.nombre.equals(nombre);
+	}
+	
+	@Override
+	public int hashCode() {
+		return nombre.hashCode();
+	}
+
+*****************************************************************************
+FactorDeImpacto
+
+@JoinColumns({
+		@JoinColumn(name="evaluacion", referencedColumnName="evaluacion", insertable=false, updatable=false),
+		@JoinColumn(name="rol", referencedColumnName="nombre", insertable=false, updatable=false)
+		})
+	private Rol rol;
+	
+@JoinColumn(name="tema", insertable=false, updatable=false)
+	private Tema tema;
+	
+*****************************************************************************
+Rol
+
+@JoinColumn(name="evaluacion", insertable=false, updatable=false)
+	private Evaluacion evaluacion;
+
+*****************************************************************************
+

@@ -1,3 +1,22 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ.client.perfiles.administrador;
 
 import java.util.Date;
@@ -68,10 +87,10 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		idEvaluacion = -1;
 		
 		// Validador de la fecha inicial
-		popupDateFieldFechaInicial.setRequiredError("Select a start date for the survey.");
+		popupDateFieldFechaInicial.setRequiredError("Seleccione una fecha para el inicio de la evaluación.");
 		
 		// Validador de la fecha final
-		popupDateFieldFechaFinal.setRequiredError("Select a finish date for the survey.");
+		popupDateFieldFechaFinal.setRequiredError("Seleccione una fecha para el cierre de la evaluación.");
 		popupDateFieldFechaFinal.addValidator(new Validator() {
 			
 			private static final long serialVersionUID = 1L;
@@ -81,7 +100,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 				Date fechaInicial = popupDateFieldFechaInicial.getValue();
 				Date fechaFinal = (Date) value;
 				if (fechaInicial.after(fechaFinal)) {
-					throw new InvalidValueException("The finish date must be after the start date.");
+					throw new InvalidValueException("La fecha final debe ser mayor a la fecha inicial.");
 				}
 			}
 		});
@@ -89,12 +108,12 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		comboBoxPrograma.setNullSelectionAllowed(false);
 		comboBoxPrograma.setImmediate(true);
 		// Validador del programa
-		comboBoxPrograma.setRequiredError("Select the program associated with this survey.");
+		comboBoxPrograma.setRequiredError("Seleccione el programa asociado a la evaluación");
 		
 		comboBoxPropietario.setNullSelectionAllowed(false);
 		comboBoxPropietario.setImmediate(true);
 		// Validador del propietario
-		comboBoxPropietario.setRequiredError("Select the owner of this survey.");
+		comboBoxPropietario.setRequiredError("Seleccione el propietario de la evaluación");
 		
 		buttonGuardar.addClickListener(new ClickListener() {
 			
@@ -191,7 +210,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 	}
 
 	private void mostrarErrorValidacion(AbstractComponent componente, String mensaje) {
-		Notification.show("Validation Error", mensaje, Type.TRAY_NOTIFICATION);
+		Notification.show("Error de validación", mensaje, Type.TRAY_NOTIFICATION);
 		this.labelError.setValue(mensaje);
 	}
 
@@ -218,7 +237,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		labelFechaInicial.setImmediate(false);
 		labelFechaInicial.setWidth("-1px");
 		labelFechaInicial.setHeight("-1px");
-		labelFechaInicial.setValue("Start Date:");
+		labelFechaInicial.setValue("Fecha Inicial:");
 		mainLayout.addComponent(labelFechaInicial, "top:20.0px;left:20.0px;");
 		
 		// popupDateFieldFechaInicial
@@ -235,7 +254,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		labelFechaFinal.setImmediate(false);
 		labelFechaFinal.setWidth("-1px");
 		labelFechaFinal.setHeight("-1px");
-		labelFechaFinal.setValue("Finish Date:");
+		labelFechaFinal.setValue("FechaFinal:");
 		mainLayout.addComponent(labelFechaFinal, "top:60.0px;left:20.0px;");
 		
 		// popupDateFieldFechaFinal
@@ -252,7 +271,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		labelPrograma.setImmediate(false);
 		labelPrograma.setWidth("-1px");
 		labelPrograma.setHeight("-1px");
-		labelPrograma.setValue("Program:");
+		labelPrograma.setValue("Programa:");
 		mainLayout.addComponent(labelPrograma, "top:100.0px;left:20.0px;");
 		
 		// labelPropietario
@@ -260,7 +279,7 @@ public class FormularioCrearEditarEvaluacion extends CustomComponent {
 		labelPropietario.setImmediate(false);
 		labelPropietario.setWidth("-1px");
 		labelPropietario.setHeight("-1px");
-		labelPropietario.setValue("Owner:");
+		labelPropietario.setValue("Propietario:");
 		mainLayout.addComponent(labelPropietario, "top:140.0px;left:20.0px;");
 		
 		// comboBoxPrograma

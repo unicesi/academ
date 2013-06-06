@@ -1,4 +1,24 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ;
+
 
 import co.edu.icesi.academ.client.PanelContenido;
 import co.edu.icesi.academ.client.PanelPieDePagina;
@@ -10,14 +30,21 @@ import co.edu.icesi.academ.client.perfiles.PanelOpciones;
 import co.edu.icesi.academ.client.perfiles.administrador.ControladorAdministrador;
 import co.edu.icesi.academ.client.perfiles.administrador.FormularioCrearEditarEvaluacion;
 import co.edu.icesi.academ.client.perfiles.administrador.GestionEvaluaciones;
+import co.edu.icesi.academ.client.perfiles.administrador.PanelBloquesMaterias;
+import co.edu.icesi.academ.client.perfiles.administrador.PanelProgramasBloques;
 import co.edu.icesi.academ.client.perfiles.evaluador.ControladorEvaluador;
 import co.edu.icesi.academ.client.perfiles.evaluador.ListadoCalificacionesEvaluacion;
+import co.edu.icesi.academ.client.perfiles.propietario.Competencias;
 import co.edu.icesi.academ.client.perfiles.propietario.ConsolidadoEvaluacion;
 import co.edu.icesi.academ.client.perfiles.propietario.ControladorPropietario;
+import co.edu.icesi.academ.client.perfiles.propietario.FactoresDeImpacto;
 import co.edu.icesi.academ.client.perfiles.propietario.ListadoEvaluadores;
+import co.edu.icesi.academ.client.perfiles.propietario.PanelAsignarRolEvaluador;
+import co.edu.icesi.academ.client.perfiles.propietario.PanelRubricas;
 import co.edu.icesi.academ.client.usuarios.ControladorInicioSesion;
 import co.edu.icesi.academ.client.usuarios.FormularioInicioSesion;
 import co.edu.icesi.academ.client.usuarios.PanelSesion;
+
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.ui.Component;
@@ -74,6 +101,7 @@ public class AcademUI extends UI {
 	 * Panel de opciones.
 	 */
 	private PanelOpciones panelOpciones;
+	
 	/**
 	 * Panel de selección de los evaluadores
 	 */
@@ -94,13 +122,44 @@ public class AcademUI extends UI {
 	 * Tabla para consolidar calificaciones de una evaluación
 	 */
 	private ConsolidadoEvaluacion consolidadoEvaluacion;
+	/**
+	 * Tabla para configurar los factores de impacto de una evaluación
+	 */
+	private FactoresDeImpacto factoresDeImpacto;
+	
+	/**
+	 * Panel de creacion o edicion de Competencias
+	 */
+	private Competencias competencias;
+	
+	
+	/**
+	 * Tabla para Gestionar Bloque de Materias ii
+	 */
+	
+	private PanelBloquesMaterias panelBloquesMaterias;
+	
+	/**
+	 * Tabla para Gestionar Programas con Bloques
+	 */
+	private PanelProgramasBloques panelProgramasBloques;
+	
+	/**
+	 * Panel para asignar roles a los evaluadores dentro de una evaluación
+	 */
+	private PanelAsignarRolEvaluador panelAsignarRol;
+	
+	/**
+	 * El panel para crear y actualizar las rubricas
+	 */
+	private PanelRubricas panelRubricas;
+	
 	
 	@Override
 	protected void init(VaadinRequest request) {
-		
 		// Set the window or tab title
         getPage().setTitle("Academic Curricula Design and Management System (ACaDeM)");
-        
+
         // Obtener la sesión del usuario (HTTPSession)
         this.httpSession = request.getWrappedSession();
         
@@ -132,20 +191,26 @@ public class AcademUI extends UI {
 		this.panelHerramientas.agregarHerramienta(this.panelSesion, "top:0.0px;left:0.0px");
 		
 		// CONTENIDO
+		
 		this.panelContenido = new PanelContenido();
+		this.panelContenido.setImmediate(true);
 		layout.addComponent(this.panelContenido, 0, 2);
 
 		// Cuando inicia la aplicación se muestra el formulario de login.
 		this.formularioInicioSesion = new FormularioInicioSesion();
 		this.panelContenido.setContenido(this.formularioInicioSesion);
+//		this.ventanaBloqueMaterias = new VentanaBloqueMaterias();
+		
+//		this.panelContenido.setContenido(this.formularioInicioSesion);
 		
 		// Panel de opciones
+		System.out.println("LLega a panel opciones");
 		this.panelOpciones = new PanelOpciones();
-		
+		System.out.println("Lo crea");
+
 		// PIE DE PÁGINA
 		this.panelPieDePagina = new PanelPieDePagina();
 		layout.addComponent(this.panelPieDePagina, 0, 3);
-		
 		setContent(layout);
 	}
 	
@@ -179,6 +244,10 @@ public class AcademUI extends UI {
 	
 	public PanelOpciones getPanelOpciones() {
 		return this.panelOpciones;
+	}
+	
+	public Competencias getPanelCompetencias(){
+		return this.competencias;
 	}
 	
 	public void setPanelOpciones(PanelOpciones panelOpciones) {
@@ -250,4 +319,62 @@ public class AcademUI extends UI {
 	public void setConsolidadoEvaluacion(ConsolidadoEvaluacion consolidadoEvaluacion) {
 		this.consolidadoEvaluacion = consolidadoEvaluacion;
 	}
+	
+	public FactoresDeImpacto getFactoresDeImpacto(){
+		return factoresDeImpacto;
+	}
+	
+	public void setFactoresDeImpacto(FactoresDeImpacto factoresDeImpacto){
+		this.factoresDeImpacto = factoresDeImpacto;
+	}
+	
+	public PanelProgramasBloques getPanelProgramasBloques() {
+		return panelProgramasBloques;
+	}
+	
+	public void setPanelProgramasBloques(
+			PanelProgramasBloques panelProgramasBloques) {
+		this.panelProgramasBloques = panelProgramasBloques;
+	}
+	
+	public PanelBloquesMaterias getPanelBloquesMaterias() {
+		return panelBloquesMaterias;
+	}
+	
+	public void setPanelBloquesMaterias(
+			PanelBloquesMaterias panelBloquesMaterias) {
+		this.panelBloquesMaterias = panelBloquesMaterias;
+	}
+
+	public void setCompetencias(Competencias competencias) 
+	{
+		this.competencias = competencias;	
+	}
+
+	public PanelAsignarRolEvaluador getPanelAsignarRol() {
+		return panelAsignarRol;
+	}
+
+	public void setPanelAsignarRol(PanelAsignarRolEvaluador panelAsignarRol) {
+		this.panelAsignarRol = panelAsignarRol;
+	}
+
+	//pANEL PATRON
+	//	private PanelPatron panelPatron;
+		
+		public PanelRubricas getPanelRubricas() {
+			return panelRubricas;
+		}
+
+	public void setPanelRubricas(PanelRubricas panelRubricas) {
+		this.panelRubricas = panelRubricas;
+	}
+	
+//	public PanelPatron getPanelPatron() {
+//		return panelPatron;
+//	}
+//	
+//	public void setPanelPatron(PanelPatron panelPatron) {
+//		this.panelPatron = panelPatron;
+//	}
 }

@@ -1,10 +1,31 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
+import co.edu.icesi.academ.bo.RolBO;
 import co.edu.icesi.academ.bo.UsuarioBO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,6 +69,20 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="perfil")
 	private Perfil perfil;
 
+	//bi-directional many-to-many association to Rol
+	@ManyToMany
+	@JoinTable(
+		name="Usuarios_Roles"
+		, joinColumns={
+			@JoinColumn(name="usuario")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="rol", referencedColumnName="nombre"),
+			@JoinColumn(name="evaluacion", referencedColumnName="evaluacion")
+			}
+		)
+	private List<Rol> roles;
+
 	public Usuario() {
 	}
 
@@ -90,17 +125,30 @@ public class Usuario implements Serializable {
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
+
+	public List<Rol> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
 	
 	public UsuarioBO toBO() {
 		UsuarioBO usuarioBO = new UsuarioBO();
 		usuarioBO.setNombre(this.nombre);
 		usuarioBO.setPerfil(this.perfil.getNombre());
+		List<RolBO> rolesBO = new ArrayList<RolBO>(roles.size());
+		for (Rol rol : roles) {
+			rolesBO.add(rol.toBO());
+		}
+		usuarioBO.setRoles(rolesBO);
 		return usuarioBO;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		Usuario user = (Usuario)obj;
+		Usuario user = (Usuario) obj;
 		return user.nombre.equals(nombre);
 	}
 	

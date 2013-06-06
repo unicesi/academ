@@ -3,6 +3,7 @@ Calificacion
 
 @NamedQueries({
 	@NamedQuery(name="obtenerCalificacionesEvaluadorEvaluacion", query="SELECT c FROM Calificacion c WHERE c.id.evaluador LIKE :evaluador AND c.id.evaluacion LIKE :evaluacion"),
+	@NamedQuery(name="obtenerCalificacionesEvaluacion", query="SELECT c FROM Calificacion c WHERE c.id.evaluacion LIKE :evaluacion"),
 	@NamedQuery(name="removerCalificacionPrevia", query="DELETE FROM Calificacion c WHERE c.id.evaluador LIKE :evaluador AND c.id.evaluacion LIKE :evaluacion AND c.id.tema LIKE :tema")
 })
 
@@ -44,9 +45,22 @@ Evaluacion
 		evaluacionBO.setFechaFinal(fechaFinal);
 		evaluacionBO.setPrograma(programa.toBO());
 		evaluacionBO.setPropietario(propietario.toBO());
+		
+		List<RolBO> rolesBO = new ArrayList<RolBO>(roles.size());
+		for (Rol rol : roles) {
+			rolesBO.add(rol.toBO());
+		}
+		evaluacionBO.setRoles(rolesBO);
+		
+		List<UsuarioBO> usuariosBO = new ArrayList<UsuarioBO>(usuarios.size());
+		for (Usuario usuario : usuarios) {
+			usuariosBO.add(usuario.toBO());
+		}
+		evaluacionBO.setEvaluadores(usuariosBO);
+		
 		return evaluacionBO;
 	}
-
+	
 *****************************************************************************
 NivelDeConocimiento
 
@@ -61,14 +75,14 @@ NivelDeConocimiento
 		nivelDeConocimientoBO.setDescripcion(descripcion);
 		return nivelDeConocimientoBO;
 	}
-
+	
 *****************************************************************************
 Programa
 
 @NamedQueries({
-	@NamedQuery(name="obtenerProgramas", query="SELECT p FROM Programa p")
+	@NamedQuery(name="obtenerProgramas", query="SELECT p FROM Programa p"),
+	@NamedQuery(name="obtenerProgramaPorCodigo", query="SELECT p FROM Programa p WHERE p.codigo LIKE :cod")
 })
-
 
 	public ProgramaBO toBO() {
 		ProgramaBO programaBO = new ProgramaBO();
@@ -77,6 +91,18 @@ Programa
 		programaBO.setDescripcion(descripcion);
 		return programaBO;
 	}
+*****************************************************************************
+Subtema
+	
+	@JoinColumn(name="tema", insertable=false, updatable=false)
+	private Tema tema;
+	
+	public SubtemaBO toBO() {
+		SubtemaBO subtemaBO = new SubtemaBO();
+		subtemaBO.setNombre(nombre);
+		return subtemaBO;
+	}
+
 
 *****************************************************************************
 Tema
@@ -84,13 +110,11 @@ Tema
 @NamedQueries({
 	@NamedQuery(name="obtenerTemas", query="SELECT t FROM Tema t")
 })
-
 	
 	public TemaBO toBO() {
 		TemaBO temaBO = new TemaBO();
 		temaBO.setId(id);
 		temaBO.setNombre(nombre);
-		temaBO.setDescripcion(descripcion);
 		return temaBO;
 	}
 
@@ -110,18 +134,35 @@ Usuario
 	@NamedQuery(name="obtenerUsuariosPropietarios", query="SELECT u FROM Usuario u WHERE u.perfil.nombre LIKE 'Propietario'"),
 	@NamedQuery(name="obtenerUsuariosDisponibles", query="SELECT u FROM Usuario u WHERE u.nombre NOT IN (SELECT ue.id.usuario FROM Usuario_Evaluacion ue WHERE ue.id.evaluacion LIKE :evaluacion)")
 })
-
+	
+	@ManyToMany
+	@JoinTable(
+		name="Usuarios_Roles"
+		, joinColumns={
+			@JoinColumn(name="usuario")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="rol", referencedColumnName="nombre"),
+			@JoinColumn(name="evaluacion", referencedColumnName="evaluacion")
+			}
+		)
+	private List<Rol> roles;
 
 	public UsuarioBO toBO() {
 		UsuarioBO usuarioBO = new UsuarioBO();
 		usuarioBO.setNombre(this.nombre);
 		usuarioBO.setPerfil(this.perfil.getNombre());
+		List<RolBO> rolesBO = new ArrayList<RolBO>(roles.size());
+		for (Rol rol : roles) {
+			rolesBO.add(rol.toBO());
+		}
+		usuarioBO.setRoles(rolesBO);
 		return usuarioBO;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		Usuario user = (Usuario)obj;
+		Usuario user = (Usuario) obj;
 		return user.nombre.equals(nombre);
 	}
 	
@@ -133,6 +174,13 @@ Usuario
 *****************************************************************************
 FactorDeImpacto
 
+@NamedQueries({
+	@NamedQuery(name="obtenerFactoresDeImpacto", query="SELECT fc FROM FactorDeImpacto fc, Evaluacion e where fc.id.evaluacion = e.id and e.propietario = :propietario and e.id = :evaluacion"),
+	@NamedQuery(name="obtenerFactoresDeImpactoRol", query="SELECT fc FROM FactorDeImpacto fc where fc.id.rol= :rol and fc.id.evaluacion = :evaluacion"),
+	@NamedQuery(name="removerFactorDeImpactoPrevio", query="DELETE FROM FactorDeImpacto f WHERE f.id.rol LIKE :rol AND f.id.evaluacion LIKE :evaluacion AND f.id.tema LIKE :tema")
+})
+
+
 @JoinColumns({
 		@JoinColumn(name="evaluacion", referencedColumnName="evaluacion", insertable=false, updatable=false),
 		@JoinColumn(name="rol", referencedColumnName="nombre", insertable=false, updatable=false)
@@ -142,11 +190,180 @@ FactorDeImpacto
 @JoinColumn(name="tema", insertable=false, updatable=false)
 	private Tema tema;
 	
+public FactorDeImpactoBO toBO(){
+		FactorDeImpactoBO factor = new FactorDeImpactoBO();
+		factor.setEvaluacion(id.getEvaluacion());
+		factor.setFactorDeImpacto(factorDeImpacto);
+		factor.setRol(id.getRol());
+		factor.setTema(id.getTema());
+		return factor;
+	}
+	
 *****************************************************************************
 Rol
+@NamedQueries({
+	@NamedQuery(name="obtenerRolesEvaluacion", query="SELECT r FROM Rol r where r.evaluacion.id like :evaluacion ")
+})
 
 @JoinColumn(name="evaluacion", insertable=false, updatable=false)
 	private Evaluacion evaluacion;
+	
+	public RolBO toBO(){
+		RolBO rolBO = new RolBO();
+		rolBO.setEvaluacion(evaluacion.getId());
+		rolBO.setNombre(id.getNombre());
+		return rolBO;
+	}
+*****************************************************************************
+RolPK
+public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof RolPK)) {
+			return false;
+		}
+		RolPK castOther = (RolPK)other;
+		return 
+			this.nombre.equals(castOther.nombre)
+			&& (this.evaluacion == castOther.evaluacion);
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + this.nombre.hashCode();
+		hash = hash * prime + this.evaluacion;
+		
+		return hash;
+	}
+	
+	public String toString()
+	{
+		return nombre;
+	}
+*****************************************************************************
+
+Criterio_Rubrica
+
+@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="nivelDeConocimiento", referencedColumnName="nivelDeConocimiento", insertable=false, updatable=false),
+		@JoinColumn(name="programa", referencedColumnName="tema", insertable=false, updatable=false),
+		@JoinColumn(name="tema", referencedColumnName="programa", insertable=false, updatable=false)
+		})
+	private ResultadoAprendizaje resultadoAprendizaje;
+	
+	public CriterioBO toBO( )
+	{
+		CriterioBO criterioBO = new CriterioBO();
+		criterioBO.setDescripcion(descripcion);
+		criterioBO.setId( id.getId());
+		
+		List<NivelCriterioBO> niveles = new LinkedList<NivelCriterioBO>();
+		for( Nivel_Rubrica nivel : nivelesCriterio )
+			niveles.add( nivel.toBO() );
+		
+		criterioBO.setNiveles(niveles);
+		
+		return criterioBO;
+	}
 
 *****************************************************************************
 
+ResultadoAprendizaje
+
+	@ManyToOne
+	@JoinColumn(name="nivelDeConocimiento", insertable=false, updatable=false)
+	private NivelDeConocimiento nivelDeConocimiento;
+
+	@ManyToOne
+	@JoinColumn(name="programa", insertable=false, updatable=false)
+	private Programa programa;
+
+	@ManyToOne
+	@JoinColumn(name="tema", insertable=false, updatable=false)
+	private Tema tema;
+	
+	public ResultadoAprendizajeBO toBO( )
+	{
+		ResultadoAprendizajeBO bo = new ResultadoAprendizajeBO();
+		
+		bo.setPrograma( programa.toBO());
+		bo.setTema( tema.toBO());
+		bo.setNivelDeConocimiento(nivelDeConocimiento.toBO());
+		
+		return bo;
+	}
+
+*****************************************************************************
+
+Nivel_Rubrica
+
+@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="criterio", referencedColumnName="id", insertable=false, updatable=false),
+		@JoinColumn(name="nivelDeConocimiento", referencedColumnName="nivelDeConocimiento", insertable=false, updatable=false),
+		@JoinColumn(name="programa", referencedColumnName="programa", insertable=false, updatable=false),
+		@JoinColumn(name="tema", referencedColumnName="tema", insertable=false, updatable=false)
+		})
+	private Criterio_Rubrica criterioRubrica;
+
+	public NivelCriterioBO toBO( )
+	{
+		NivelCriterioBO nivelBO = new NivelCriterioBO();
+		nivelBO.setDescripcion( descripcion );
+		nivelBO.setId( id.getId() );
+		nivelBO.setNivel( this.nivel );
+		
+		return nivelBO;
+		
+	}
+	
+*****************************************************************************
+
+Materia
+
+	@NamedQueries({
+	@NamedQuery(name="obtenerMaterias", query="SELECT e FROM Materia e")
+	})
+	
+	
+	
+		public MateriaBO toBO() {
+		MateriaBO materiaBO = new MateriaBO();
+		materiaBO.setCodigo(codigo);
+		materiaBO.setNombre(nombre);
+		return materiaBO;
+	}
+
+	
+*****************************************************************************
+Bloque
+
+@NamedQueries({
+	@NamedQuery(name="obtenerBloques", query="SELECT e FROM Bloque e")
+})
+
+public BloqueBO toBO(){
+		BloqueBO bloqueBO = new BloqueBO();
+		bloqueBO.setNombre(nombre);
+		return bloqueBO;
+}
+
+*****************************************************************************		
+Alcances
+
+	@JoinColumns({
+		@JoinColumn(name="programa", referencedColumnName="programa", insertable=false, updatable=false),
+		@JoinColumn(name="tema", referencedColumnName="tema", insertable=false, updatable=false)
+		})
+	private ResultadoAprendizaje resultadoAprendizaje;
+	
+	@JoinColumns({
+		@JoinColumn(name="bloque", referencedColumnName="bloque", insertable=false, updatable=false),
+		@JoinColumn(name="materia", referencedColumnName="materia", insertable=false, updatable=false)
+		})
+	private Materias_Bloque materiaBloque;
+
+*****************************************************************************		

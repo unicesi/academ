@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="DTPersistenceUnit">
+		<description> </description>
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>academ</jta-data-source>
+		<class>co.edu.icesi.academ.entities.Alcance</class>
+		<class>co.edu.icesi.academ.entities.AlcancePK</class>
+		<class>co.edu.icesi.academ.entities.Bloque</class>
 		<class>co.edu.icesi.academ.entities.Calificacion</class>
 		<class>co.edu.icesi.academ.entities.CalificacionPK</class>
 		<class>co.edu.icesi.academ.entities.Calificacion_Rol</class>
 		<class>co.edu.icesi.academ.entities.Calificacion_RolPK</class>
+		<class>co.edu.icesi.academ.entities.Competencia</class>
+		<class>co.edu.icesi.academ.entities.Criterio_Rubrica</class>
+		<class>co.edu.icesi.academ.entities.Criterio_RubricaPK</class>
 		<class>co.edu.icesi.academ.entities.Evaluacion</class>
+		<class>co.edu.icesi.academ.entities.FactorDeImpacto</class>
+		<class>co.edu.icesi.academ.entities.FactorDeImpactoPK</class>
+		<class>co.edu.icesi.academ.entities.Materia</class>
+		<class>co.edu.icesi.academ.entities.Materias_Bloque</class>
+		<class>co.edu.icesi.academ.entities.Materias_BloquePK</class>
 		<class>co.edu.icesi.academ.entities.NivelDeConocimiento</class>
+		<class>co.edu.icesi.academ.entities.Nivel_Rubrica</class>
+		<class>co.edu.icesi.academ.entities.Nivel_RubricaPK</class>
 		<class>co.edu.icesi.academ.entities.Perfil</class>
 		<class>co.edu.icesi.academ.entities.Programa</class>
+		<class>co.edu.icesi.academ.entities.ResultadoAprendizaje</class>
+		<class>co.edu.icesi.academ.entities.ResultadoAprendizajePK</class>
 		<class>co.edu.icesi.academ.entities.Rol</class>
 		<class>co.edu.icesi.academ.entities.RolPK</class>
+		<class>co.edu.icesi.academ.entities.Subtema</class>
+		<class>co.edu.icesi.academ.entities.SubtemaPK</class>
 		<class>co.edu.icesi.academ.entities.Tema</class>
 		<class>co.edu.icesi.academ.entities.Usuario</class>
 		<class>co.edu.icesi.academ.entities.Usuario_Evaluacion</class>
 		<class>co.edu.icesi.academ.entities.Usuario_EvaluacionPK</class>
-		<class>co.edu.icesi.academ.entities.FactorDeImpacto</class>
-		<class>co.edu.icesi.academ.entities.FactorDeImpactoPK</class>
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>

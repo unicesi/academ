@@ -1,7 +1,28 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import co.edu.icesi.academ.bo.FactorDeImpactoBO;
 
 
 /**
@@ -10,6 +31,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="FactoresDeImpacto")
+@NamedQueries({
+	@NamedQuery(name="obtenerFactoresDeImpacto", query="SELECT fc FROM FactorDeImpacto fc, Evaluacion e where fc.id.evaluacion = e.id and e.propietario = :propietario and e.id = :evaluacion"),
+	@NamedQuery(name="obtenerFactoresDeImpactoRol", query="SELECT fc FROM FactorDeImpacto fc where fc.id.rol= :rol and fc.id.evaluacion = :evaluacion"),
+	@NamedQuery(name="removerFactorDeImpactoPrevio", query="DELETE FROM FactorDeImpacto f WHERE f.id.rol LIKE :rol AND f.id.evaluacion LIKE :evaluacion AND f.id.tema LIKE :tema")
+})
 public class FactorDeImpacto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -64,6 +90,15 @@ public class FactorDeImpacto implements Serializable {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	
+	public FactorDeImpactoBO toBO(){
+		FactorDeImpactoBO factor = new FactorDeImpactoBO();
+		factor.setEvaluacion(id.getEvaluacion());
+		factor.setFactorDeImpacto(factorDeImpacto);
+		factor.setRol(id.getRol());
+		factor.setTema(id.getTema());
+		return factor;
 	}
 
 }

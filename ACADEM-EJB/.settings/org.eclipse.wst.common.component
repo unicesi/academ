@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="ACADEM-EJB">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/" source-path="/Test"/>
         <property name="java-output-path" value="/ACADEM-EJB/build/classes"/>
         <property name="ClientProject" value="ACADEM-EJBClient"/>
         <property name="ClientJARURI" value="ACADEM-EJBClient.jar"/>

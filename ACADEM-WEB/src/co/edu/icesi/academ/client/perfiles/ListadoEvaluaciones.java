@@ -1,3 +1,22 @@
+/**
+* Copyright © 2013 Universidad Icesi
+* 
+* This file is part of ACADEM.
+* 
+* ACADEM is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ACADEM is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with ACADEM.  If not, see <http://www.gnu.org/licenses/>.
+**/
+
 package co.edu.icesi.academ.client.perfiles;
 
 import java.text.SimpleDateFormat;
@@ -46,9 +65,9 @@ public class ListadoEvaluaciones extends CustomComponent {
 		
 		// Define the names and data types of columns.
 		tablaEvaluaciones.addContainerProperty("ID", Integer.class, null);
-		tablaEvaluaciones.addContainerProperty("Start Date", String.class, null);
-		tablaEvaluaciones.addContainerProperty("Finish Date", String.class, null);
-		tablaEvaluaciones.addContainerProperty("Program", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Fecha Inicial", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Fecha Final", String.class, null);
+		tablaEvaluaciones.addContainerProperty("Programa", String.class, null);
 
 		// Allow selecting items from the table.
 		tablaEvaluaciones.setSelectable(true);
@@ -139,7 +158,7 @@ public class ListadoEvaluaciones extends CustomComponent {
 		labelTitulo.setImmediate(false);
 		labelTitulo.setWidth("-1px");
 		labelTitulo.setHeight("-1px");
-		labelTitulo.setValue("Surveys");
+		labelTitulo.setValue("Evaluaciones");
 		verticalLayout_1.addComponent(labelTitulo);
 		verticalLayout_1.setComponentAlignment(labelTitulo, new Alignment(48));
 		
